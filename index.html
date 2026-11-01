@@ -41,7 +41,6 @@
           <a href="#producto">Producto</a>
           <a href="#como-funciona">Cómo funciona</a>
           <a href="#agentes">Agentes</a>
-          <a href="#prompts">Prompts</a>
           <a href="#ia">IA</a>
           <a href="#capturas">Capturas</a>
           <a href="#instalar">Instalar</a>
@@ -250,47 +249,6 @@
         </div>
       </section>
 
-      <section class="section section--alt prompt-section" id="prompts">
-        <div class="container prompt-layout">
-          <div class="prompt-copy" data-reveal>
-            <div class="kicker">SOLO PROMPTS</div>
-            <h2>Sin botones.<br />Solo un mensaje.</h2>
-            <p>
-              Abre tu agente CLI en la carpeta del proyecto y pega uno de estos
-              prompts. No necesitas instalar nada más: Pulso lee los mismos archivos
-              y verás los cambios al pulsar <strong>Actualizar</strong>.
-            </p>
-            <ol class="prompt-steps">
-              <li><span>01</span><div><strong>Abre la carpeta</strong><p>Claude Code, OpenCode, Codex o cualquier agente CLI.</p></div></li>
-              <li><span>02</span><div><strong>Pega un prompt</strong><p>Empieza por entender el proyecto; después pide cambios.</p></div></li>
-              <li><span>03</span><div><strong>Actualiza el panel</strong><p>Pulso relee la documentación y muestra el nuevo estado.</p></div></li>
-            </ol>
-            <p class="prompt-note">
-              También puedes pedirle al agente que actualice la documentación por ti.
-              Pulso no necesita una integración especial para eso.
-            </p>
-          </div>
-
-          <div class="prompt-cards" data-reveal>
-            <article class="prompt-card">
-              <div class="prompt-card-head">
-                <span>1 · Entender el proyecto</span>
-                <button class="copy-prompt" type="button" data-copy-target="prompt-analyze">Copiar</button>
-              </div>
-              <pre id="prompt-analyze">Lee README.md y la documentación de esta carpeta. Devuelve el estado real, los riesgos y el siguiente paso. No modifiques ningún archivo.</pre>
-            </article>
-
-            <article class="prompt-card">
-              <div class="prompt-card-head">
-                <span>2 · Actualizar la documentación</span>
-                <button class="copy-prompt" type="button" data-copy-target="prompt-docs">Copiar</button>
-              </div>
-              <pre id="prompt-docs">Revisa los cambios de esta sesión y actualiza la documentación. Crea solo los archivos que falten y no sobrescribas los existentes. Al final, resume qué cambió.</pre>
-            </article>
-          </div>
-        </div>
-      </section>
-
       <section class="section split-section" id="actualizar">
         <div class="container split">
           <div class="split-media" data-reveal>
@@ -465,6 +423,25 @@ npm start</code></pre>
               <code>npm run demo</code>
             </div>
           </div>
+        </div>
+
+        <div class="container agent-install" data-reveal>
+          <div class="agent-install-copy">
+            <div class="kicker">CON UN AGENTE</div>
+            <h3>Pídeselo a tu agente.</h3>
+            <p>
+              Copia este prompt y pégalo en Claude Code, OpenCode, Codex o cualquier
+              agente con terminal. Se encarga de clonar, comprobar los requisitos,
+              instalar y abrir Pulso.
+            </p>
+          </div>
+          <article class="prompt-card agent-prompt">
+            <div class="prompt-card-head">
+              <span>Prompt de instalación</span>
+              <button class="copy-prompt" type="button" data-copy-target="install-prompt">Copiar</button>
+            </div>
+            <pre id="install-prompt">Instala Pulso en este equipo desde https://github.com/notSickboy/Pulso. Clona el repositorio, ejecuta npm install y abre la app con npm start. Si falta Node.js 20 o superior o npm, instálalos primero. En Windows, crea también el acceso directo con "Crear acceso directo.ps1". No modifiques mis otros proyectos, datos ni claves.</pre>
+          </article>
         </div>
       </section>
 
