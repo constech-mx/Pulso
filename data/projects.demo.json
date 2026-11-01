@@ -1,0 +1,480 @@
+{
+  "meta": {
+    "name": "Pulso",
+    "tagline": "Panel de proyectos",
+    "generatedAt": "2026-10-31",
+    "sourceNote": "Cartera de demostración con proyectos ficticios. Se usa con PULSO_DEMO=1 para capturas y pruebas."
+  },
+  "projects": [
+    {
+      "id": "atlas",
+      "name": "Atlas",
+      "shortName": "Atlas",
+      "folder": "demo\\atlas",
+      "status": "activo",
+      "stage": "v0.9 · migración de datos en curso",
+      "progress": 78,
+      "accent": "#f5b43c",
+      "summary": "Aplicación de escritorio para organizar notas, referencias y tareas por proyecto. Funciona sin conexión y guarda todo en una base local.",
+      "headline": "La interfaz está cerrada; falta migrar las notas antiguas sin perder adjuntos.",
+      "done": [
+        "Editor de notas con bloques, búsqueda instantánea y enlaces internos.",
+        "Biblioteca de adjuntos con vista previa de imágenes y PDF.",
+        "Exportación a Markdown y copia de seguridad automática.",
+        "42 pruebas de integración en verde."
+      ],
+      "next": [
+        {
+          "title": "Cerrar la migración de la base local",
+          "detail": "Convertir las notas del formato anterior y verificar que los adjuntos conserven su ruta relativa.",
+          "priority": "crítica",
+          "effort": "3–4 días"
+        },
+        {
+          "title": "Definir el modelo de permisos",
+          "detail": "Decidir si los espacios compartidos usan roles por carpeta o por nota.",
+          "priority": "alta",
+          "effort": "2 días"
+        },
+        {
+          "title": "Revisar accesibilidad del editor",
+          "detail": "Navegación por teclado, contraste de los bloques de código y anuncios del lector de pantalla.",
+          "priority": "media",
+          "effort": "1 día"
+        }
+      ],
+      "risks": [
+        "La migración todavía no se probó con una biblioteca de más de 5 000 notas.",
+        "Los adjuntos duplicados pueden inflar la copia de seguridad."
+      ],
+      "metrics": [
+        { "label": "Pruebas", "value": "42" },
+        { "label": "Versión", "value": "0.9.2" },
+        { "label": "Notas", "value": "5 120" },
+        { "label": "Arranque", "value": "1,4 s" }
+      ],
+      "sources": [
+        "README.md",
+        "docs/ESTADO.md"
+      ]
+    },
+    {
+      "id": "nebula",
+      "name": "Nébula",
+      "shortName": "Nébula",
+      "folder": "demo\\nebula",
+      "status": "activo",
+      "stage": "v2.1 · optimización del render",
+      "progress": 64,
+      "accent": "#a78bfa",
+      "summary": "Biblioteca de visualización de grafos para la web. Renderiza redes grandes con WebGL y expone una API declarativa.",
+      "headline": "La API está estable; el siguiente cuello de botella es el render de redes densas.",
+      "done": [
+        "API declarativa con layouts de fuerza, árbol y radial.",
+        "Selección, resaltado de vecinos y etiquetas adaptativas.",
+        "Documentación de inicio y tres ejemplos interactivos.",
+        "Pruebas visuales con capturas comparadas."
+      ],
+      "next": [
+        {
+          "title": "Reducir el tiempo de render en 10k nodos",
+          "detail": "Medir el costo por frame y mover el cálculo del layout a un worker.",
+          "priority": "alta",
+          "effort": "1 semana"
+        },
+        {
+          "title": "Documentar la API pública",
+          "detail": "Faltan las opciones de eventos y el ciclo de vida de las instancias.",
+          "priority": "media",
+          "effort": "2 días"
+        },
+        {
+          "title": "Publicar la versión 2.1",
+          "detail": "Congelar la API, actualizar el changelog y preparar la nota de lanzamiento.",
+          "priority": "media",
+          "effort": "1 día"
+        }
+      ],
+      "risks": [
+        "El layout en el hilo principal bloquea la interfaz en grafos medianos.",
+        "La compatibilidad con Safari no está cubierta por las pruebas."
+      ],
+      "metrics": [
+        { "label": "Nodos", "value": "10 000" },
+        { "label": "FPS", "value": "38" },
+        { "label": "Bundle", "value": "84 KB" },
+        { "label": "Ejemplos", "value": "3" }
+      ],
+      "sources": [
+        "README.md",
+        "docs/ARQUITECTURA.md"
+      ]
+    },
+    {
+      "id": "orion",
+      "name": "Orión",
+      "shortName": "Orión",
+      "folder": "demo\\orion",
+      "status": "operativo",
+      "stage": "v1.4 · respaldos en producción",
+      "progress": 91,
+      "accent": "#31d6a0",
+      "summary": "Herramienta de línea de comandos para programar respaldos incrementales, verificarlos y restaurarlos en un solo paso.",
+      "headline": "Los respaldos llevan semanas funcionando; falta ensayar una restauración completa.",
+      "done": [
+        "Respaldos incrementales con deduplicación por bloques.",
+        "Verificación automática después de cada copia.",
+        "Programación diaria y aviso por correo cuando falla.",
+        "Manual de operación y guía de recuperación."
+      ],
+      "next": [
+        {
+          "title": "Probar la restauración completa",
+          "detail": "Restaurar un servidor de prueba desde cero y medir el tiempo total.",
+          "priority": "crítica",
+          "effort": "1 día"
+        },
+        {
+          "title": "Definir retención de copias",
+          "detail": "Acordar cuántos días se conservan los incrementales y cuándo se compactan.",
+          "priority": "media",
+          "effort": "Decisión"
+        },
+        {
+          "title": "Añadir alerta de espacio libre",
+          "detail": "Avisar cuando el destino quede por debajo del 15 % de capacidad.",
+          "priority": "baja",
+          "effort": "2 horas"
+        }
+      ],
+      "risks": [
+        "Nunca se restauró un servidor completo en un entorno limpio.",
+        "El destino de respaldo no tiene redundancia geográfica."
+      ],
+      "metrics": [
+        { "label": "Coplas", "value": "128" },
+        { "label": "Éxito", "value": "99,2 %" },
+        { "label": "Datos", "value": "1,8 TB" },
+        { "label": "Versión", "value": "1.4.0" }
+      ],
+      "sources": [
+        "docs/HANDOFF.md"
+      ]
+    },
+    {
+      "id": "vega",
+      "name": "Vega",
+      "shortName": "Vega",
+      "folder": "demo\\vega",
+      "status": "activo",
+      "stage": "v1.2 · beta cerrada",
+      "progress": 72,
+      "accent": "#5ba8ff",
+      "summary": "Aplicación móvil para crear hábitos, registrar avances y compartir rachas con un grupo pequeño.",
+      "headline": "La beta funciona en Android; la ficha de tienda y la sincronización son lo que falta.",
+      "done": [
+        "Registro diario, recordatorios y estadísticas semanales.",
+        "Grupos privados con rachas compartidas.",
+        "Modo oscuro y accesibilidad básica revisada.",
+        "Compilación firmada de la beta para Android."
+      ],
+      "next": [
+        {
+          "title": "Preparar la ficha de la tienda",
+          "detail": "Capturas, textos y política de privacidad para la revisión.",
+          "priority": "alta",
+          "effort": "2 días"
+        },
+        {
+          "title": "Resolver conflictos de sincronización",
+          "detail": "Definir qué registro gana cuando el mismo hábito se marca en dos dispositivos.",
+          "priority": "media",
+          "effort": "3 días"
+        },
+        {
+          "title": "Medir la retención de la beta",
+          "detail": "Revisar cuántos usuarios vuelven después de la primera semana.",
+          "priority": "baja",
+          "effort": "1 semana"
+        }
+      ],
+      "risks": [
+        "La sincronización puede duplicar registros sin conexión.",
+        "La política de privacidad todavía es un borrador."
+      ],
+      "metrics": [
+        { "label": "Beta", "value": "38" },
+        { "label": "Retención", "value": "54 %" },
+        { "label": "Hábitos", "value": "1 240" },
+        { "label": "Versión", "value": "1.2.0" }
+      ],
+      "sources": [
+        "README.md",
+        "CHANGELOG.md"
+      ]
+    },
+    {
+      "id": "lumen",
+      "name": "Lumen",
+      "shortName": "Lumen",
+      "folder": "demo\\lumen",
+      "status": "por-iniciar",
+      "stage": "Sin documentación · definición inicial",
+      "progress": 12,
+      "accent": "#ff7a9e",
+      "summary": "Sistema de componentes y guía visual para unificar la interfaz de tres productos internos. Todavía no tiene documentación en la carpeta.",
+      "headline": "Hay decisiones de diseño tomadas, pero nada escrito: conviene crear la documentación base.",
+      "done": [
+        "Paleta, tipografía y escala de espaciado definidas.",
+        "Inventario inicial de 18 componentes."
+      ],
+      "next": [
+        {
+          "title": "Escribir el README del sistema",
+          "detail": "Explicar el alcance, la instalación y cómo se publican los componentes.",
+          "priority": "alta",
+          "effort": "2 horas"
+        },
+        {
+          "title": "Documentar el estado actual",
+          "detail": "Registrar qué componentes están listos y cuáles siguen en boceto.",
+          "priority": "alta",
+          "effort": "1 hora"
+        },
+        {
+          "title": "Definir el proceso de cambios",
+          "detail": "Acordar revisión visual y versionado antes de sumar componentes.",
+          "priority": "media",
+          "effort": "Decisión"
+        }
+      ],
+      "risks": [
+        "Sin documentación, cada producto puede interpretar los componentes de forma distinta.",
+        "El inventario vive en una hoja de cálculo personal."
+      ],
+      "metrics": [
+        { "label": "Componentes", "value": "18" },
+        { "label": "Listos", "value": "6" },
+        { "label": "Productos", "value": "3" }
+      ],
+      "sources": []
+    },
+    {
+      "id": "quasar",
+      "name": "Quásar",
+      "shortName": "Quásar",
+      "folder": "demo\\quasar",
+      "status": "pausado",
+      "stage": "v0.4 · en pausa desde septiembre",
+      "progress": 45,
+      "accent": "#ffb15c",
+      "summary": "Pipeline de datos para consolidar métricas de varias fuentes en un almacén único. Quedó en pausa por un cambio de prioridades.",
+      "headline": "La extracción funciona, pero la transformación quedó a medias y sin dueño.",
+      "done": [
+        "Conectores de dos fuentes y carga incremental.",
+        "Esquema inicial del almacén y tablero de control.",
+        "Pruebas de calidad sobre los datos extraídos."
+      ],
+      "next": [
+        {
+          "title": "Decidir si el pipeline continúa",
+          "detail": "Confirmar si el equipo retoma el proyecto este trimestre o lo archiva.",
+          "priority": "media",
+          "effort": "Decisión"
+        },
+        {
+          "title": "Documentar las transformaciones",
+          "detail": "Dejar por escrito las reglas aplicadas y las fuentes descartadas.",
+          "priority": "media",
+          "effort": "1 día"
+        }
+      ],
+      "risks": [
+        "Sin dueño claro, los conectores pueden romperse sin aviso.",
+        "Las reglas de transformación solo existen en el código."
+      ],
+      "metrics": [
+        { "label": "Fuentes", "value": "2" },
+        { "label": "Tablas", "value": "11" },
+        { "label": "Cobertura", "value": "68 %" }
+      ],
+      "sources": [
+        "README.md"
+      ]
+    },
+    {
+      "id": "pulsar",
+      "name": "Púlsar",
+      "shortName": "Púlsar",
+      "folder": "demo\\pulsar",
+      "status": "activo",
+      "stage": "Prototipo 0.3 · bucle jugable",
+      "progress": 58,
+      "accent": "#4bd39a",
+      "summary": "Prototipo de juego de naves con scroll vertical, mejoras y puntuación persistente. Todavía es una prueba de mecánicas.",
+      "headline": "El bucle ya engancha; falta pulir el control y el equilibrio de enemigos.",
+      "done": [
+        "Bucle completo: oleadas, mejoras, pausa y fin de partida.",
+        "Efectos de partículas y sonido provisional.",
+        "Puntuación persistente y tabla local."
+      ],
+      "next": [
+        {
+          "title": "Ajustar el input del mando",
+          "detail": "Suavizar la zona muerta y permitir disparo continuo.",
+          "priority": "media",
+          "effort": "2 días"
+        },
+        {
+          "title": "Equilibrar las oleadas",
+          "detail": "Ajustar la curva de dificultad de los primeros cinco minutos.",
+          "priority": "media",
+          "effort": "3 días"
+        },
+        {
+          "title": "Preparar una demo jugable",
+          "detail": "Elegir tres niveles y empaquetar una versión para compartir.",
+          "priority": "baja",
+          "effort": "1 semana"
+        }
+      ],
+      "risks": [
+        "La dificultad crece demasiado rápido después de la oleada cuatro.",
+        "El control táctil no está probado en pantallas pequeñas."
+      ],
+      "metrics": [
+        { "label": "Oleadas", "value": "8" },
+        { "label": "FPS", "value": "60" },
+        { "label": "Niveles", "value": "3" }
+      ],
+      "sources": [
+        "README.md",
+        "docs/BITACORA.md"
+      ]
+    }
+  ],
+  "attention": [
+    {
+      "id": "atlas-migracion",
+      "projectId": "atlas",
+      "priority": "crítica",
+      "title": "Cerrar la migración de la base local",
+      "detail": "La interfaz ya está cerrada; la migración de notas y adjuntos es lo único que bloquea la beta.",
+      "owner": "Equipo Atlas",
+      "source": "docs/ESTADO.md",
+      "when": "Esta semana"
+    },
+    {
+      "id": "orion-restauracion",
+      "projectId": "orion",
+      "priority": "crítica",
+      "title": "Probar una restauración completa",
+      "detail": "Los respaldos funcionan, pero nunca se restauró un servidor limpio de principio a fin.",
+      "owner": "Operaciones",
+      "source": "docs/HANDOFF.md",
+      "when": "Antes del próximo mes"
+    },
+    {
+      "id": "nebula-render",
+      "projectId": "nebula",
+      "priority": "alta",
+      "title": "Reducir el render en redes densas",
+      "detail": "Mover el layout a un worker para no bloquear la interfaz con 10 000 nodos.",
+      "owner": "Equipo Nébula",
+      "source": "docs/ARQUITECTURA.md",
+      "when": "Este sprint"
+    },
+    {
+      "id": "vega-tienda",
+      "projectId": "vega",
+      "priority": "alta",
+      "title": "Preparar la ficha de la tienda",
+      "detail": "Faltan capturas, textos y la política de privacidad definitiva para enviar la beta.",
+      "owner": "Equipo Vega",
+      "source": "CHANGELOG.md",
+      "when": "En dos semanas"
+    },
+    {
+      "id": "atlas-permisos",
+      "projectId": "atlas",
+      "priority": "alta",
+      "title": "Definir el modelo de permisos",
+      "detail": "Los espacios compartidos necesitan roles claros antes de abrir la beta.",
+      "owner": "Producto",
+      "source": "docs/ESTADO.md",
+      "when": "Este mes"
+    },
+    {
+      "id": "lumen-docs",
+      "projectId": "lumen",
+      "priority": "alta",
+      "title": "Crear la documentación base de Lumen",
+      "detail": "No hay README ni estado escrito: conviene generarlos antes de sumar componentes.",
+      "owner": "Diseño",
+      "source": "README.md",
+      "when": "Esta semana"
+    },
+    {
+      "id": "vega-sync",
+      "projectId": "vega",
+      "priority": "media",
+      "title": "Resolver conflictos de sincronización",
+      "detail": "Definir qué registro gana cuando el mismo hábito se marca en dos dispositivos.",
+      "owner": "Equipo Vega",
+      "source": "README.md",
+      "when": "Este mes"
+    },
+    {
+      "id": "nebula-api",
+      "projectId": "nebula",
+      "priority": "media",
+      "title": "Documentar la API pública",
+      "detail": "Faltan las opciones de eventos y el ciclo de vida de las instancias.",
+      "owner": "Equipo Nébula",
+      "source": "README.md",
+      "when": "Antes de publicar"
+    },
+    {
+      "id": "pulsar-input",
+      "projectId": "pulsar",
+      "priority": "media",
+      "title": "Ajustar el input del mando",
+      "detail": "La zona muerta actual hace que los movimientos cortos se pierdan.",
+      "owner": "Equipo Púlsar",
+      "source": "docs/BITACORA.md",
+      "when": "Este sprint"
+    },
+    {
+      "id": "quasar-continuidad",
+      "projectId": "quasar",
+      "priority": "baja",
+      "title": "Decidir el futuro de Quásar",
+      "detail": "El pipeline está en pausa y sin dueño; hay que retomarlo o archivarlo.",
+      "owner": "Dirección técnica",
+      "source": "README.md",
+      "when": "Este trimestre"
+    }
+  ],
+  "decisions": [
+    {
+      "projectId": "atlas",
+      "title": "¿Base local embebida o servidor propio?",
+      "detail": "SQLite simplifica la instalación; un servidor facilita compartir espacios entre equipos."
+    },
+    {
+      "projectId": "nebula",
+      "title": "¿Mantener WebGL o migrar a WebGPU?",
+      "detail": "WebGPU mejora el render, pero reduce la compatibilidad con navegadores antiguos."
+    },
+    {
+      "projectId": "orion",
+      "title": "¿Copia cifrada en la nube o solo disco externo?",
+      "detail": "La nube añade protección geográfica; el disco externo mantiene el costo en cero."
+    },
+    {
+      "projectId": "quasar",
+      "title": "¿Archivar el pipeline o retomarlo?",
+      "detail": "Retomarlo exige un dueño y un trimestre; archivarlo libera mantenimiento."
+    }
+  ]
+}

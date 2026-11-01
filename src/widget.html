@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self'; connect-src 'none';" />
+    <title>Pulso — Pendientes</title>
+    <link rel="stylesheet" href="widget.css" />
+  </head>
+  <body>
+    <div class="widget" id="widget">
+      <header class="w-head">
+        <div class="w-brand">
+          <span class="w-mark">
+            <svg viewBox="0 0 32 32" fill="none">
+              <path d="M4 19.5h5.2l3.1-8.4 4.1 13 3.3-9.1 2.1 4.5H28" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+              <circle cx="28" cy="19.5" r="2.2" fill="currentColor" />
+            </svg>
+          </span>
+          <span class="w-wordmark">PULSO</span>
+          <span class="w-drag-hint">·</span>
+          <span class="w-drag-hint" id="w-date">CARGANDO</span>
+        </div>
+        <div class="w-actions">
+          <button class="w-icon is-pinned" id="w-pin" title="Fijar sobre las ventanas">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M9 4h6l-.7 5.2 3.2 3.2v1.1H6.5v-1.1l3.2-3.2L9 4Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M12 13.5V21" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+          </button>
+          <button class="w-icon" id="w-refresh" title="Actualizar">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M20 12a8 8 0 1 1-2.6-5.9M20 4v5h-5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <button class="w-icon" id="w-open" title="Abrir el panel">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M14 4h6v6M20 4l-8.5 8.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><path d="M18 14.5V19a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h4.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+          </button>
+          <button class="w-icon" id="w-close" title="Ocultar el widget">
+            <svg viewBox="0 0 24 24" fill="none"><path d="m7 7 10 10M17 7 7 17" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+          </button>
+        </div>
+      </header>
+
+      <div class="w-body">
+        <div class="w-title-row">
+          <div>
+            <h1>Pendientes</h1>
+            <p id="w-summary">Cargando tus frentes…</p>
+          </div>
+          <div class="w-total">
+            <strong id="w-open-count">0</strong>
+            <span>abiertos</span>
+          </div>
+        </div>
+
+        <div class="w-pulse">
+          <div class="w-pulse-track"><i id="w-pulse-fill"></i></div>
+          <span id="w-pulse-label">—</span>
+        </div>
+
+        <div class="w-section-label">
+          <span>TU LISTA</span>
+          <span class="w-section-count" id="w-task-count">0</span>
+        </div>
+        <div class="w-tasks" id="w-tasks"></div>
+
+        <div class="w-section-label attention-label">
+          <span>ATENCIÓN</span>
+          <span class="w-section-count" id="w-attention-count">0</span>
+        </div>
+        <div class="w-attention" id="w-attention"></div>
+
+        <div class="w-section-label radar-label">
+          <span>RADAR</span>
+          <span class="w-section-count">AVANCE</span>
+        </div>
+        <div class="w-radar" id="w-radar"></div>
+      </div>
+
+      <form class="w-add" id="w-form">
+        <input id="w-input" type="text" maxlength="180" placeholder="Añadir un pendiente…" autocomplete="off" />
+        <button type="submit" title="Añadir">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </button>
+      </form>
+
+      <footer class="w-foot">
+        <div class="w-dots" id="w-dots" title="Proyectos"></div>
+        <button id="w-open-panel">ABRIR PANEL <span>→</span></button>
+      </footer>
+    </div>
+
+    <script src="widget.js"></script>
+  </body>
+</html>

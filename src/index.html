@@ -1,0 +1,395 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self'; connect-src 'none';" />
+    <title>Pulso — Panel de proyectos</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <div class="brand">
+          <div class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 32 32" fill="none">
+              <path d="M4 19.5h5.2l3.1-8.4 4.1 13 3.3-9.1 2.1 4.5H28" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" />
+              <circle cx="28" cy="19.5" r="2.2" fill="currentColor" />
+            </svg>
+          </div>
+          <div class="brand-text">
+            <strong>PULSO</strong>
+            <span>project desk</span>
+          </div>
+        </div>
+
+        <div class="nav-label">Espacio de trabajo</div>
+        <nav class="nav" id="nav">
+          <button class="nav-item is-active" data-view="resumen">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M4 13h6V4H4v9Zm0 7h6v-4H4v4Zm10 0h6v-9h-6v9Zm0-16v4h6V4h-6Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+            <span>Resumen</span>
+            <em class="nav-badge" id="nav-attention">0</em>
+          </button>
+          <button class="nav-item" data-view="proyectos">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M4 6.5A1.5 1.5 0 0 1 5.5 5h4l2 2.2h7A1.5 1.5 0 0 1 20 8.7v9.8a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 4 18.5v-12Z" stroke="currentColor" stroke-width="1.6"/><path d="M4.5 10h15" stroke="currentColor" stroke-width="1.6"/></svg>
+            <span>Proyectos</span>
+            <em class="nav-count" id="nav-projects">0</em>
+          </button>
+          <button class="nav-item" data-view="atencion">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M12 3.8 21 20H3L12 3.8Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M12 9v4.7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="16.7" r="1" fill="currentColor"/></svg>
+            <span>Atención</span>
+            <em class="nav-badge warm" id="nav-attention-2">0</em>
+          </button>
+          <button class="nav-item" data-view="pendientes">
+            <svg viewBox="0 0 24 24" fill="none"><rect x="4" y="4" width="16" height="16" rx="3" stroke="currentColor" stroke-width="1.6"/><path d="m8 12 2.4 2.4L16 9" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span>Mis pendientes</span>
+            <em class="nav-count" id="nav-tasks">0</em>
+          </button>
+          <button class="nav-item" data-view="fuentes">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M6 3.8h8l4 4V20a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V4.8a1 1 0 0 1 1-1Z" stroke="currentColor" stroke-width="1.6"/><path d="M14 3.8v4h4M8.5 12h7M8.5 15.5h5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+            <span>Fuentes</span>
+          </button>
+          <button class="nav-item" data-view="ajustes">
+            <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="3.1" stroke="currentColor" stroke-width="1.6"/><path d="M12 3.5v2M12 18.5v2M20.5 12h-2M5.5 12h-2M18 6l-1.4 1.4M7.4 16.6 6 18M18 18l-1.4-1.4M7.4 7.4 6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+            <span>Ajustes</span>
+          </button>
+        </nav>
+
+        <div class="side-focus" id="side-focus">
+          <div class="side-focus-head">
+            <span class="pulse-dot"></span>
+            <span>FOCO DE HOY</span>
+          </div>
+          <p id="side-focus-text">Cargando el estado de tus proyectos…</p>
+          <button id="side-focus-button" class="text-button">Abrir el frente más urgente <span>→</span></button>
+        </div>
+
+        <div class="side-foot">
+          <div class="sync-row">
+            <span class="sync-dot"></span>
+            <span id="side-sync">Sincronizando…</span>
+          </div>
+          <button class="icon-button" id="btn-widget-side" title="Mostrar u ocultar el widget">
+            <svg viewBox="0 0 24 24" fill="none"><rect x="3.5" y="4.5" width="17" height="13" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M8 21h8M12 17.5V21" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </button>
+        </div>
+      </aside>
+
+      <main class="main">
+        <header class="topbar">
+          <div class="topbar-title">
+            <div class="eyebrow" id="view-eyebrow">RESUMEN</div>
+            <div class="date-line" id="date-line">Viernes, 30 de octubre de 2026</div>
+          </div>          <div class="topbar-actions">
+            <button class="ai-button" id="btn-ai" title="Revisar la documentación de un proyecto con tu API">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M12 3.5l1.7 4.4 4.4 1.7-4.4 1.7L12 15.7l-1.7-4.4L5.9 9.6l4.4-1.7L12 3.5Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M18.5 14.5l.9 2.2 2.2.9-2.2.9-.9 2.2-.9-2.2-2.2-.9 2.2-.9.9-2.2Z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg>
+              Actualizar con IA
+            </button>
+            <button class="ghost-button" id="btn-refresh">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M20 11a8 8 0 1 0-2.2 6.7M20 5.5V11h-5.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Actualizar
+            </button>
+            <button class="primary-button" id="btn-widget">
+              <svg viewBox="0 0 24 24" fill="none"><rect x="3.5" y="4.5" width="17" height="13" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M8 21h8M12 17.5V21" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+              Widget
+            </button>
+          </div>
+        </header>
+
+        <div class="main-scroll">
+          <section class="view is-active" id="view-resumen">
+            <div class="hero">
+              <div class="hero-copy">
+                <div class="hero-kicker"><span class="live-dot"></span> ESTADO GENERAL <span class="dot-sep">·</span> <span id="hero-date">30 OCT 2026</span></div>
+                <h1 id="hero-title">Cargando tus proyectos…</h1>
+                <p id="hero-sub"></p>
+                <div class="hero-stats" id="hero-stats"></div>
+              </div>
+              <div class="hero-side">
+                <div class="gauge-wrap">
+                  <svg class="gauge" viewBox="0 0 140 140" aria-hidden="true">
+                    <circle class="gauge-track" cx="70" cy="70" r="58" />
+                    <circle class="gauge-fill" id="gauge-fill" cx="70" cy="70" r="58" />
+                  </svg>
+                  <div class="gauge-center">
+                    <strong id="gauge-value">0%</strong>
+                    <span>avance medio</span>
+                  </div>
+                </div>
+                <div class="hero-mini" id="hero-mini"></div>
+              </div>
+            </div>
+
+            <div class="section-head">
+              <div>
+                <div class="section-kicker">PRIORIDADES</div>
+                <h2>Lo que pide atención</h2>
+                <p>Ordenado por impacto. Toca una fila para ver el proyecto y la fuente.</p>
+              </div>
+              <button class="text-button" data-view="atencion">Ver las <span id="attention-total-inline">0</span> señales <span>→</span></button>
+            </div>
+            <div class="attention-list" id="attention-preview"></div>
+
+            <div class="section-head projects-head">
+              <div>
+                <div class="section-kicker">RADAR</div>
+                <h2>Todos los frentes, en una sola vista</h2>
+                <p>Cada tarjeta resume el avance, el último movimiento y el siguiente paso.</p>
+              </div>
+              <button class="text-button" data-view="proyectos">Abrir todos <span>→</span></button>
+            </div>
+            <div class="project-grid" id="project-grid"></div>
+
+            <div class="two-col">
+              <div class="panel decisions-panel">
+                <div class="panel-head">
+                  <div>
+                    <div class="section-kicker">ESPERANDO POR TI</div>
+                    <h2>Decisiones abiertas</h2>
+                  </div>
+                  <span class="count-pill" id="decisions-count">0</span>
+                </div>
+                <div class="decision-list" id="decisions-list"></div>
+              </div>
+              <div class="panel activity-panel">
+                <div class="panel-head">
+                  <div>
+                    <div class="section-kicker">ÚLTIMOS MOVIMIENTOS</div>
+                    <h2>Actividad reciente</h2>
+                  </div>
+                </div>
+                <div class="activity-list" id="activity-list"></div>
+              </div>
+            </div>
+          </section>
+
+          <section class="view" id="view-proyectos">
+            <div class="view-head">
+              <div>
+                <div class="section-kicker">CARTERA</div>
+                <h1>Proyectos</h1>
+                <p>Todo lo que está en marcha, en pausa o por arrancar. El avance es una lectura del estado documentado, no una métrica automática.</p>
+              </div>
+              <div class="view-head-actions">
+                <div class="legend" id="projects-legend"></div>
+                <button class="primary-button" id="btn-add-project">
+                  <svg viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+                  Añadir proyecto
+                </button>
+              </div>
+            </div>
+            <div class="project-table" id="project-table"></div>
+          </section>
+
+          <section class="view" id="view-atencion">
+            <div class="view-head">
+              <div>
+                <div class="section-kicker">SEMÁFORO</div>
+                <h1>Atención</h1>
+                <p>Señales extraídas de los documentos de cada proyecto. No todas son código: varias son decisiones o trámites que solo puedes hacer tú.</p>
+              </div>
+            </div>
+            <div class="filter-row" id="attention-filters">
+              <button class="filter-chip is-active" data-filter="todas">Todas <span id="filter-count-todas">0</span></button>
+              <button class="filter-chip" data-filter="crítica">Críticas <span id="filter-count-critica">0</span></button>
+              <button class="filter-chip" data-filter="alta">Altas <span id="filter-count-alta">0</span></button>
+              <button class="filter-chip" data-filter="media">Medias <span id="filter-count-media">0</span></button>
+              <button class="filter-chip" data-filter="baja">Bajas <span id="filter-count-baja">0</span></button>
+            </div>
+            <div class="attention-full" id="attention-full"></div>
+          </section>
+
+          <section class="view" id="view-pendientes">
+            <div class="view-head">
+              <div>
+                <div class="section-kicker">TU LISTA</div>
+                <h1>Mis pendientes</h1>
+                <p>Esto es lo que aparece en el widget del escritorio. Se guarda en tu equipo, no en la nube.</p>
+              </div>
+              <div class="task-summary">
+                <strong id="tasks-open-count">0</strong>
+                <span>abiertos</span>
+              </div>
+            </div>
+
+            <form class="task-form" id="task-form">
+              <div class="task-input-wrap">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+                <input id="task-input" type="text" maxlength="180" placeholder="¿Qué tienes que hacer? Ej. comprar la fuente del Pi" autocomplete="off" />
+              </div>
+              <select id="task-project" aria-label="Proyecto"></select>
+              <select id="task-priority" aria-label="Prioridad">
+                <option value="alta">Alta</option>
+                <option value="media" selected>Media</option>
+                <option value="baja">Baja</option>
+              </select>
+              <button class="primary-button" type="submit">Añadir</button>
+            </form>
+
+            <div class="filter-row task-filters">
+              <button class="filter-chip is-active" data-task-filter="abiertas">Abiertas</button>
+              <button class="filter-chip" data-task-filter="todas">Todas</button>
+              <button class="filter-chip" data-task-filter="hechas">Hechas</button>
+              <button class="filter-chip danger" id="clear-done">Limpiar hechas</button>
+            </div>
+
+            <div class="task-list" id="task-list"></div>
+          </section>
+
+          <section class="view" id="view-fuentes">
+            <div class="view-head">
+              <div>
+                <div class="section-kicker">TRAZABILIDAD</div>
+                <h1>Fuentes leídas</h1>
+                <p>Documentos que alimentan este panel. El dashboard es de solo lectura sobre tus proyectos: nunca escribe en sus carpetas.</p>
+              </div>
+              <button class="ghost-button" id="btn-open-root">Abrir carpeta del panel</button>
+            </div>
+            <div class="readonly-note">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M12 3.8 20 7v5.2c0 4.6-3.2 7.3-8 8.4-4.8-1.1-8-3.8-8-8.4V7l8-3.2Z" stroke="currentColor" stroke-width="1.6"/><path d="m8.7 12 2.2 2.2 4.4-4.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <div><strong>Lectura por defecto.</strong> Pulso no modifica tus proyectos salvo cuando usas «Crear documentación» y lo confirmas; en ese caso solo escribe archivos nuevos.</div>
+            </div>
+            <div class="sources-list" id="sources-list"></div>
+          </section>
+
+          <section class="view" id="view-ajustes">
+            <div class="view-head">
+              <div>
+                <div class="section-kicker">PREFERENCIAS</div>
+                <h1>Ajustes</h1>
+                <p>El widget y tus pendientes viven en este equipo. Nada sale de aquí.</p>
+              </div>
+            </div>
+            <div class="settings-grid">
+              <div class="panel setting-card">
+                <div class="setting-row">
+                  <div>
+                    <strong>Mostrar el widget al abrir</strong>
+                    <p>Aparece en la esquina superior derecha del escritorio.</p>
+                  </div>
+                  <button class="switch is-on" id="toggle-widget-start" role="switch" aria-checked="true"><span></span></button>
+                </div>
+                <div class="setting-row">
+                  <div>
+                    <strong>Anclar al escritorio</strong>
+                    <p>Vive en el escritorio, detrás de las ventanas, como los widgets nativos. Pulsa Win+D para verlo.</p>
+                  </div>
+                  <button class="switch is-on" id="toggle-pin" role="switch" aria-checked="true"><span></span></button>
+                </div>
+                <div class="setting-row">
+                  <div>
+                    <strong>Abrir Pulso con Windows</strong>
+                    <p>Inicia el panel y el widget al entrar a tu sesión.</p>
+                  </div>
+                  <button class="switch" id="toggle-login" role="switch" aria-checked="false"><span></span></button>
+                </div>
+              </div>
+              <div class="panel setting-card">
+                <div class="setting-head"><strong>Dónde se guarda todo</strong></div>
+                <div class="path-box">
+                  <span class="path-label">Estado y pendientes</span>
+                  <code id="state-path">—</code>
+                </div>
+                <div class="path-box">
+                  <span class="path-label">Datos de los proyectos</span>
+                  <code id="data-path">—</code>
+                </div>
+                <div class="setting-actions">
+                  <button class="ghost-button" id="btn-open-state">Abrir carpeta de estado</button>
+                  <button class="ghost-button" id="btn-reload">Releer fuentes</button>
+                  <button class="ghost-button" id="btn-quit">Salir de Pulso</button>
+                </div>
+              </div>
+              <div class="panel setting-card ai-setting-card">
+                <div class="setting-head">
+                  <strong>Inteligencia artificial</strong>
+                  <p class="ai-setting-sub">Conecta tu propia API para revisar, ordenar y crear la documentación de cada proyecto.</p>
+                </div>
+                <div class="ai-form">
+                  <label class="ai-field">
+                    <span>Proveedor</span>
+                    <select id="ai-provider"></select>
+                  </label>
+                  <label class="ai-field">
+                    <span>Modelo</span>
+                    <input id="ai-model" type="text" list="ai-models" spellcheck="false" autocomplete="off" placeholder="deepseek-chat" />
+                    <datalist id="ai-models"></datalist>
+                  </label>
+                  <label class="ai-field">
+                    <span>Clave de API</span>
+                    <input id="ai-key" type="password" spellcheck="false" autocomplete="off" placeholder="Pega tu clave…" />
+                  </label>
+                </div>
+                <div class="ai-status-row">
+                  <span class="ai-key-status" id="ai-key-status">Sin clave</span>
+                  <button class="text-button" id="ai-key-link">Obtener una clave <span>→</span></button>
+                </div>
+                <div class="setting-actions">
+                  <button class="primary-button" id="ai-save">Guardar</button>
+                  <button class="ghost-button" id="ai-test">Probar conexión</button>
+                </div>
+                <p class="ai-privacy">La clave se cifra con el almacén del sistema y nunca se muestra de vuelta. Solo se usa desde este equipo y se envía al proveedor que elijas.</p>
+              </div>
+              <div class="panel setting-card about-card">
+                <div class="about-mark">
+                  <svg viewBox="0 0 32 32" fill="none"><path d="M4 19.5h5.2l3.1-8.4 4.1 13 3.3-9.1 2.1 4.5H28" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/><circle cx="28" cy="19.5" r="2.2" fill="currentColor"/></svg>
+                </div>
+                <div>
+                  <strong>Pulso 1.0</strong>
+                  <p>Un tablero local para tus proyectos, con widget de escritorio y conexión opcional a tu propia API.</p>
+                  <p class="muted">Atajo: abre el widget desde la barra superior o con doble clic en el icono de la bandeja.</p>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </main>
+    </div>
+
+    <div class="drawer-overlay" id="drawer-overlay"></div>
+    <aside class="drawer" id="drawer" aria-hidden="true">
+      <div class="drawer-inner" id="drawer-content"></div>
+    </aside>
+
+    <div class="agent-menu" id="agent-menu" aria-hidden="true">
+      <div class="agent-menu-head">
+        <span>ABRIR EN</span>
+        <strong id="agent-menu-project">—</strong>
+      </div>
+      <div class="agent-menu-options" id="agent-menu-options"></div>
+      <div class="agent-menu-foot">Se abre PowerShell en la carpeta raíz</div>
+    </div>
+
+    <div class="ai-overlay" id="ai-overlay"></div>
+    <section class="ai-modal" id="ai-modal" aria-hidden="true" role="dialog" aria-modal="true">
+      <div class="ai-modal-head">
+        <div>
+          <div class="section-kicker">DOCUMENTACIÓN ASISTIDA</div>
+          <h2>Actualizar con IA</h2>
+        </div>
+        <button class="drawer-close" id="ai-close" title="Cerrar">
+          <svg viewBox="0 0 24 24" fill="none"><path d="m6 6 12 12M18 6 6 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+      <div class="ai-modal-body" id="ai-body"></div>
+    </section>
+
+    <div class="ai-overlay" id="project-overlay"></div>
+    <section class="ai-modal project-modal" id="project-modal" aria-hidden="true" role="dialog" aria-modal="true">
+      <div class="ai-modal-head">
+        <div>
+          <div class="section-kicker">NUEVA CARPETA</div>
+          <h2>Añadir proyecto</h2>
+        </div>
+        <button class="drawer-close" id="project-close" title="Cerrar">
+          <svg viewBox="0 0 24 24" fill="none"><path d="m6 6 12 12M18 6 6 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+      <div class="ai-modal-body" id="project-body"></div>
+    </section>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <script src="app.js"></script>
+  </body>
+</html>

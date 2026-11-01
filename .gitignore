@@ -1,0 +1,27 @@
+# Dependencias
+node_modules/
+
+# Datos locales del panel (pueden contener rutas y proyectos privados)
+data/projects.json
+data/*.bak
+
+# Configuración y credenciales locales
+.env
+.env.*
+ai-config.json
+*.key
+*.pem
+
+# Capturas de verificación y registros
+artifacts/
+*.log
+
+# Sistema
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# Empaquetado
+dist/
+out/
+release/

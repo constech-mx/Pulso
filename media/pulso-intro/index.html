@@ -1,0 +1,733 @@
+<!doctype html>
+<html lang="es" data-resolution="landscape">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>Pulso — intro</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
+    <style>
+      :root {
+        --bg: #090b0f;
+        --panel: #11151b;
+        --panel-2: #151a22;
+        --line: rgba(255, 255, 255, 0.09);
+        --line-strong: rgba(255, 255, 255, 0.16);
+        --text: #edf1f6;
+        --muted: #9aa5b4;
+        --dim: #677182;
+        --lime: #c9f45f;
+        --lime-soft: rgba(201, 244, 95, 0.12);
+        --font-body: "Segoe UI Variable Text", "Segoe UI", system-ui, sans-serif;
+        --font-display: "Bahnschrift", "Segoe UI Variable Display", "Segoe UI", sans-serif;
+        --font-mono: "Cascadia Mono", "Consolas", ui-monospace, monospace;
+      }
+      @font-face {
+        font-family: "Bahnschrift";
+        src: local("Bahnschrift");
+      }
+      @font-face {
+        font-family: "Segoe UI Variable Text";
+        src: local("Segoe UI Variable Text");
+      }
+      @font-face {
+        font-family: "Segoe UI Variable Display";
+        src: local("Segoe UI Variable Display");
+      }
+      @font-face {
+        font-family: "Cascadia Mono";
+        src: local("Cascadia Mono");
+      }
+      @font-face {
+        font-family: "Segoe UI";
+        src: local("Segoe UI");
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        background: var(--bg);
+        color: var(--text);
+        font-family: var(--font-body);
+        -webkit-font-smoothing: antialiased;
+        user-select: none;
+      }
+      .clip {
+        position: absolute;
+        inset: 0;
+      }
+      .scene {
+        overflow: hidden;
+      }
+      .bg {
+        position: absolute;
+        inset: 0;
+        background:
+          radial-gradient(1200px 780px at 82% -12%, rgba(201, 244, 95, 0.1), transparent 62%),
+          radial-gradient(900px 720px at -12% 112%, rgba(91, 168, 255, 0.07), transparent 62%),
+          var(--bg);
+      }
+      .bg-glow {
+        position: absolute;
+        inset: -8%;
+        background:
+          radial-gradient(620px 420px at 74% 18%, rgba(201, 244, 95, 0.07), transparent 70%),
+          radial-gradient(520px 420px at 16% 84%, rgba(91, 168, 255, 0.055), transparent 70%);
+        transform-origin: center;
+      }
+      .grid {
+        position: absolute;
+        inset: 0;
+        background-image:
+          linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+        background-size: 72px 72px;
+        -webkit-mask-image: radial-gradient(ellipse at 50% 42%, black 20%, transparent 78%);
+        mask-image: radial-gradient(ellipse at 50% 42%, black 20%, transparent 78%);
+      }
+      .pulse-line {
+        position: absolute;
+        left: -60px;
+        bottom: 22px;
+        width: 2040px;
+        opacity: 0.11;
+      }
+      .pulse-line path {
+        fill: none;
+        stroke: var(--lime);
+        stroke-width: 3;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+
+      /* ---------------------------------------------------------- brand bar */
+      .brand {
+        position: absolute;
+        top: 46px;
+        left: 64px;
+        right: 64px;
+        bottom: auto;
+        height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        opacity: 0;
+      }
+      .brand-left {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+      }
+      .mark {
+        display: block;
+        filter: drop-shadow(0 10px 24px rgba(201, 244, 95, 0.18));
+      }
+      .brand .mark {
+        width: 40px;
+        height: 40px;
+      }
+      .brand-word {
+        font-family: var(--font-display);
+        font-size: 16px;
+        font-weight: 600;
+        letter-spacing: 0.3em;
+      }
+      .brand-divider {
+        width: 1px;
+        height: 18px;
+        background: var(--line-strong);
+      }
+      .brand-sub {
+        color: #8a94a4;
+        font-family: var(--font-mono);
+        font-size: 10px;
+        letter-spacing: 0.2em;
+      }
+      .brand-pill {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 14px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        color: #9aa5b4;
+        font-family: var(--font-mono);
+        font-size: 10px;
+        letter-spacing: 0.16em;
+      }
+      .brand-pill i {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--lime);
+        box-shadow: 0 0 12px rgba(201, 244, 95, 0.7);
+      }
+
+      /* ------------------------------------------------------------- shared */
+      .kicker {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        color: var(--lime);
+        font-family: var(--font-mono);
+        font-size: 12px;
+        letter-spacing: 0.22em;
+      }
+      .kicker::before {
+        content: "";
+        width: 34px;
+        height: 1px;
+        background: var(--lime);
+        opacity: 0.8;
+      }
+      .h2 {
+        font-family: var(--font-display);
+        font-size: 64px;
+        font-weight: 600;
+        letter-spacing: -0.03em;
+        line-height: 1.02;
+      }
+      .h2 .lime,
+      .h1 .lime {
+        color: var(--lime);
+      }
+      .body {
+        max-width: 560px;
+        color: var(--muted);
+        font-size: 23px;
+        line-height: 1.5;
+      }
+      .rows {
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+        margin-top: 34px;
+      }
+      .row {
+        display: grid;
+        grid-template-columns: 44px 1fr;
+        gap: 14px;
+        padding-top: 16px;
+        border-top: 1px solid var(--line);
+      }
+      .row .n {
+        color: var(--lime);
+        font-family: var(--font-mono);
+        font-size: 12px;
+        line-height: 1.5;
+        letter-spacing: 0.08em;
+      }
+      .row strong {
+        display: block;
+        margin-bottom: 4px;
+        font-size: 19px;
+        font-weight: 600;
+        letter-spacing: -0.01em;
+      }
+      .row span {
+        display: block;
+        color: #8e98a9;
+        font-size: 15px;
+        line-height: 1.5;
+      }
+
+      /* ------------------------------------------------------------- scene 1 */
+      .s1 .inner {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        width: 1220px;
+        text-align: center;
+      }
+      .hero-mark {
+        width: 104px;
+        height: 104px;
+        margin: 0 auto 26px;
+        filter: drop-shadow(0 22px 48px rgba(201, 244, 95, 0.26));
+      }
+      .hero-word {
+        margin-bottom: 26px;
+        color: var(--lime);
+        font-family: var(--font-display);
+        font-size: 18px;
+        font-weight: 600;
+        letter-spacing: 0.46em;
+        text-indent: 0.46em;
+      }
+      .s1 .eyebrow {
+        margin-bottom: 22px;
+        color: #9aa5b4;
+        font-family: var(--font-mono);
+        font-size: 12px;
+        letter-spacing: 0.26em;
+        text-indent: 0.26em;
+      }
+      .h1 {
+        font-family: var(--font-display);
+        font-size: 96px;
+        font-weight: 600;
+        letter-spacing: -0.042em;
+        line-height: 0.98;
+      }
+      .h1 .line {
+        display: block;
+      }
+      .s1 .sub {
+        max-width: 860px;
+        margin: 30px auto 0;
+        color: #9aa5b4;
+        font-size: 24px;
+        line-height: 1.5;
+      }
+      .s1 .meta {
+        margin-top: 42px;
+        color: #7d8797;
+        font-family: var(--font-mono);
+        font-size: 11px;
+        letter-spacing: 0.24em;
+      }
+
+      /* ------------------------------------------------------------- scene 2 */
+      .s2 .left {
+        position: absolute;
+        left: 110px;
+        top: 292px;
+        width: 540px;
+      }
+      .s2 .left .kicker {
+        margin-bottom: 24px;
+      }
+      .s2 .left .body {
+        margin-top: 24px;
+      }
+      .window-wrap {
+        position: absolute;
+        left: 720px;
+        top: 178px;
+        width: 1100px;
+        transform-origin: 70% 50%;
+      }
+      .window {
+        overflow: hidden;
+        border: 1px solid var(--line-strong);
+        border-radius: 18px;
+        background: #0d1117;
+        box-shadow:
+          0 60px 140px rgba(0, 0, 0, 0.72),
+          0 0 0 1px rgba(201, 244, 95, 0.05),
+          0 0 90px rgba(201, 244, 95, 0.05);
+      }
+      .window-bar {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        height: 38px;
+        padding: 0 14px;
+        border-bottom: 1px solid var(--line);
+        background: linear-gradient(180deg, #171d25, #11161d);
+      }
+      .window-bar .mark {
+        width: 16px;
+        height: 16px;
+      }
+      .window-title {
+        color: #aab4c2;
+        font-family: var(--font-mono);
+        font-size: 11px;
+        letter-spacing: 0.04em;
+      }
+      .window-actions {
+        display: flex;
+        gap: 12px;
+        margin-left: auto;
+        color: #8a94a4;
+        font-family: var(--font-mono);
+        font-size: 12px;
+      }
+      .window img {
+        display: block;
+        width: 100%;
+      }
+      .pill {
+        position: absolute;
+        left: 754px;
+        top: 140px;
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        padding: 10px 16px;
+        border: 1px solid rgba(201, 244, 95, 0.3);
+        border-radius: 999px;
+        background: rgba(11, 14, 19, 0.92);
+        box-shadow: 0 18px 40px rgba(0, 0, 0, 0.5);
+        color: #d9e9ad;
+        font-family: var(--font-mono);
+        font-size: 11px;
+        letter-spacing: 0.06em;
+      }
+      .pill i {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: var(--lime);
+        box-shadow: 0 0 14px rgba(201, 244, 95, 0.8);
+      }
+
+      /* ------------------------------------------------------------- scene 3 */
+      .s3 .modal-wrap {
+        position: absolute;
+        left: 116px;
+        top: 270px;
+        width: 806px;
+        transform-origin: 50% 50%;
+      }
+      .modal-glow {
+        position: absolute;
+        inset: -70px;
+        border-radius: 50%;
+        background: radial-gradient(closest-side, rgba(201, 244, 95, 0.11), transparent 72%);
+      }
+      .modal-shot {
+        position: relative;
+        display: block;
+        width: 100%;
+        border: 1px solid var(--line-strong);
+        border-radius: 20px;
+        box-shadow: 0 50px 120px rgba(0, 0, 0, 0.7);
+      }
+      .s3 .right {
+        position: absolute;
+        left: 1010px;
+        top: 296px;
+        width: 780px;
+      }
+      .s3 .right .kicker {
+        margin-bottom: 24px;
+      }
+      .s3 .right .body {
+        margin-top: 24px;
+        max-width: 700px;
+      }
+      .checks {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        margin-top: 36px;
+      }
+      .check {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        color: #c6ceda;
+        font-size: 17px;
+      }
+      .check i {
+        display: grid;
+        place-items: center;
+        width: 22px;
+        height: 22px;
+        border: 1px solid rgba(201, 244, 95, 0.32);
+        border-radius: 50%;
+        background: rgba(201, 244, 95, 0.08);
+        color: var(--lime);
+        font-family: var(--font-mono);
+        font-size: 10px;
+        font-style: normal;
+      }
+
+      /* ------------------------------------------------------------- scene 4 */
+      .s4 .widget-wrap {
+        position: absolute;
+        left: 210px;
+        top: 196px;
+        width: 404px;
+        filter: drop-shadow(0 50px 90px rgba(0, 0, 0, 0.62));
+      }
+      .s4 .widget-wrap img {
+        display: block;
+        width: 100%;
+      }
+      .s4 .right {
+        position: absolute;
+        left: 760px;
+        top: 300px;
+        width: 900px;
+      }
+      .s4 .right .kicker {
+        margin-bottom: 24px;
+      }
+      .s4 .right .body {
+        margin-top: 24px;
+        max-width: 720px;
+      }
+      .tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 36px;
+      }
+      .tag {
+        padding: 10px 15px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        color: #9aa5b4;
+        font-family: var(--font-mono);
+        font-size: 11px;
+        letter-spacing: 0.06em;
+      }
+      .tag b {
+        color: var(--lime);
+        font-weight: 500;
+      }
+
+      /* ------------------------------------------------------------- scene 5 */
+      .s5 .inner {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        text-align: center;
+      }
+      .s5 .mark {
+        width: 92px;
+        height: 92px;
+        margin: 0 auto 28px;
+        filter: drop-shadow(0 22px 50px rgba(201, 244, 95, 0.3));
+      }
+      .s5 .word {
+        font-family: var(--font-display);
+        font-size: 54px;
+        font-weight: 600;
+        letter-spacing: 0.22em;
+        text-indent: 0.22em;
+      }
+      .s5 .closing-tag {
+        margin-top: 20px;
+        color: #a8b3c2;
+        font-size: 26px;
+        letter-spacing: -0.01em;
+      }
+      .s5 .line {
+        width: 150px;
+        height: 2px;
+        margin: 34px auto 0;
+        background: var(--lime);
+        transform-origin: left center;
+      }
+      .s5 .meta {
+        margin-top: 30px;
+        color: #7d8797;
+        font-family: var(--font-mono);
+        font-size: 11px;
+        letter-spacing: 0.2em;
+      }
+
+      /* initial opacity, animated by the root timeline.
+         Transform states live in GSAP so it owns the full transform. */
+      .s1 .hero-mark,
+      .s1 .hero-word,
+      .s1 .eyebrow,
+      .s1 .h1 .line,
+      .s1 .sub,
+      .s1 .meta,
+      .s2 .left > *,
+      .s2 .window-wrap,
+      .s2 .pill,
+      .s3 .modal-wrap,
+      .s3 .right > *,
+      .s4 .widget-wrap,
+      .s4 .right > *,
+      .s5 .mark,
+      .s5 .word,
+      .s5 .closing-tag,
+      .s5 .meta {
+        opacity: 0;
+      }
+      .s5 .line {
+        transform-origin: left center;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="root"
+      data-composition-id="main"
+      data-start="0"
+      data-duration="12.9"
+      data-width="1920"
+      data-height="1080"
+    >
+      <div class="bg clip" id="bg" data-start="0" data-duration="12.9" data-track-index="0">
+        <div class="bg-glow"></div>
+        <div class="grid"></div>
+        <svg class="pulse-line" viewBox="0 0 2040 300" aria-hidden="true">
+          <path d="M0 168h300l62-118 84 224 70-186 54 80h300l58-96 66 176 64-116h982" />
+        </svg>
+      </div>
+
+      <header class="brand clip" id="brand" data-start="0" data-duration="12.9" data-track-index="1">
+        <div class="brand-left">
+          <svg class="mark" viewBox="0 0 64 64" aria-hidden="true">
+            <rect width="64" height="64" rx="16" fill="#c9f45f" />
+            <path d="M8 34h9l5-13 7 26 6-18 4 9h17" fill="none" stroke="#0b0d09" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round" />
+            <circle cx="56" cy="38" r="2.4" fill="#0b0d09" />
+          </svg>
+          <span class="brand-word">PULSO</span>
+          <span class="brand-divider"></span>
+          <span class="brand-sub">PROJECT DESK</span>
+        </div>
+        <div class="brand-pill"><i></i> LOCAL · WINDOWS</div>
+      </header>
+
+      <section class="scene s1 clip" id="scene-1" data-start="0" data-duration="2.8" data-track-index="2">
+        <div class="inner">
+          <svg class="hero-mark" viewBox="0 0 64 64" aria-hidden="true">
+            <rect width="64" height="64" rx="16" fill="#c9f45f" />
+            <path d="M8 34h9l5-13 7 26 6-18 4 9h17" fill="none" stroke="#0b0d09" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round" />
+            <circle cx="56" cy="38" r="2.4" fill="#0b0d09" />
+          </svg>
+          <div class="hero-word">PULSO</div>
+          <div class="eyebrow">PANEL DE PROYECTOS PARA WINDOWS</div>
+          <h1 class="h1">
+            <span class="line">Todo tu trabajo,</span>
+            <span class="line">en un solo <span class="lime">pulso.</span></span>
+          </h1>
+          <p class="sub">El estado real de cada proyecto, sus pendientes y lo que sigue. Sin ruido.</p>
+          <div class="meta">LOCAL · SIN CUENTAS · SIN TELEMETRÍA</div>
+        </div>
+      </section>
+
+      <section class="scene s2 clip" id="scene-2" data-start="2.55" data-duration="3.3" data-track-index="2">
+        <div class="left">
+          <div class="kicker">01 · EL PANEL</div>
+          <h2 class="h2">Todo el estado,<br />en una sola vista.</h2>
+          <p class="body">El estado real de cada proyecto, sin ruido.</p>
+          <div class="rows">
+            <div class="row"><div class="n">01</div><div><strong>Estado real</strong><span>README, handoffs y notas. Sin inventar nada.</span></div></div>
+            <div class="row"><div class="n">02</div><div><strong>Qué sigue</strong><span>Siguiente paso, riesgos y decisiones abiertas.</span></div></div>
+            <div class="row"><div class="n">03</div><div><strong>Siempre local</strong><span>Sin cuentas, sin nube y sin telemetría.</span></div></div>
+          </div>
+        </div>
+
+        <div class="pill"><i></i> ACTUALIZADO · 7 PROYECTOS · 11 DOCUMENTOS</div>
+
+        <div class="window-wrap">
+          <div class="window">
+            <div class="window-bar">
+              <svg class="mark" viewBox="0 0 64 64" aria-hidden="true">
+                <rect width="64" height="64" rx="16" fill="#c9f45f" />
+                <path d="M8 34h9l5-13 7 26 6-18 4 9h17" fill="none" stroke="#0b0d09" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+              <span class="window-title">Pulso — Panel de proyectos</span>
+              <span class="window-actions">&#8212;&nbsp;&nbsp;&#9633;&nbsp;&nbsp;&#215;</span>
+            </div>
+            <img src="assets/dashboard.png" alt="Panel de proyectos de Pulso" />
+          </div>
+        </div>
+      </section>
+
+      <section class="scene s3 clip" id="scene-3" data-start="5.7" data-duration="3.1" data-track-index="2">
+        <div class="modal-wrap">
+          <div class="modal-glow"></div>
+          <img class="modal-shot" src="assets/modal-proyecto.png" alt="Añadir un proyecto con análisis de IA" />
+        </div>
+        <div class="right">
+          <div class="kicker">02 · NUEVA CARPETA</div>
+          <h2 class="h2">Añade una carpeta.<br />La IA la <span class="lime">ordena.</span></h2>
+          <p class="body">Lee la carpeta y propone lo que falta.</p>
+          <div class="checks">
+            <div class="check"><i>&#10003;</i> Elige cualquier carpeta del equipo.</div>
+            <div class="check"><i>&#10003;</i> Analiza con DeepSeek, OpenAI o Claude.</div>
+            <div class="check"><i>&#10003;</i> Nunca sobrescribe un archivo.</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="scene s4 clip" id="scene-4" data-start="8.55" data-duration="2.1" data-track-index="2">
+        <div class="widget-wrap">
+          <img src="assets/widget.png" alt="Widget de pendientes de Pulso" />
+        </div>
+        <div class="right">
+          <div class="kicker">03 · ESCRITORIO</div>
+          <h2 class="h2">Siempre a la vista.</h2>
+          <p class="body">Win+D y sigue ahí.</p>
+          <div class="tags">
+            <span class="tag"><b>&#9679;</b> Anclado al escritorio</span>
+            <span class="tag"><b>&#9679;</b> Sin abrir el panel</span>
+            <span class="tag"><b>&#9679;</b> Se guarda en tu equipo</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="scene s5 clip" id="scene-5" data-start="10.55" data-duration="2.35" data-track-index="2">
+        <div class="inner">
+          <svg class="mark" viewBox="0 0 64 64" aria-hidden="true">
+            <rect width="64" height="64" rx="16" fill="#c9f45f" />
+            <path d="M8 34h9l5-13 7 26 6-18 4 9h17" fill="none" stroke="#0b0d09" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round" />
+            <circle cx="56" cy="38" r="2.4" fill="#0b0d09" />
+          </svg>
+          <div class="word">PULSO</div>
+          <div class="closing-tag">Tu trabajo, en un solo pulso.</div>
+          <div class="line"></div>
+          <div class="meta">PANEL DE PROYECTOS PARA WINDOWS · ELECTRON · MIT</div>
+        </div>
+      </section>
+    </div>
+
+    <script>
+      const tl = gsap.timeline({ paused: true });
+
+      tl.set(".s1 .inner", { xPercent: -50, yPercent: -50 }, 0);
+      tl.set(".s5 .inner", { xPercent: -50, yPercent: -50 }, 0);
+      tl.to(".bg-glow", { scale: 1.06, duration: 12.9, ease: "none" }, 0);
+
+      // Opening
+      tl.fromTo(".s1 .hero-mark", { opacity: 1, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.65, ease: "power3.out" }, 0);
+      tl.fromTo(".s1 .hero-word", { opacity: 1, y: 10 }, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, 0.15);
+      tl.fromTo(".s1 .eyebrow", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, 0.42);
+      tl.fromTo(".s1 .h1 .line", { opacity: 0, y: 26 }, { opacity: 1, y: 0, duration: 0.8, stagger: 0.12, ease: "power3.out" }, 0.55);
+      tl.fromTo(".s1 .sub", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" }, 0.92);
+      tl.fromTo(".s1 .meta", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, 1.12);
+      tl.to(".s1 .inner", { opacity: 0, y: -26, duration: 0.42, ease: "power2.in" }, 2.3);
+
+      // Product panel
+      tl.to(".brand", { opacity: 1, duration: 0.55, ease: "power2.out" }, 2.5);
+      tl.fromTo(".s2 .left > *", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.55, stagger: 0.09, ease: "power2.out" }, 2.62);
+      tl.fromTo(".s2 .window-wrap", { opacity: 0, x: 90, scale: 0.97 }, { opacity: 1, x: 0, scale: 1, duration: 0.85, ease: "power3.out" }, 2.7);
+      tl.fromTo(".s2 .pill", { opacity: 0, y: -10 }, { opacity: 1, y: 0, duration: 0.55, ease: "back.out(1.5)" }, 3.35);
+      tl.to(".s2 .window img", { scale: 1.045, duration: 2.5, ease: "none" }, 3.45);
+
+      // New folder + AI
+      tl.to(".s2 .left", { opacity: 0, y: -18, duration: 0.38, ease: "power2.in" }, 5.45);
+      tl.to(".s2 .window-wrap", { opacity: 0, y: -18, duration: 0.38, ease: "power2.in" }, 5.45);
+      tl.to(".s2 .pill", { opacity: 0, y: -18, duration: 0.38, ease: "power2.in" }, 5.45);
+      tl.fromTo(".s3 .modal-wrap", { opacity: 0, x: -70, scale: 0.97 }, { opacity: 1, x: 0, scale: 1, duration: 0.75, ease: "power3.out" }, 5.76);
+      tl.fromTo(".s3 .right > *", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.55, stagger: 0.1, ease: "power2.out" }, 5.9);
+
+      // Widget
+      tl.to(".s3 .modal-wrap", { opacity: 0, y: -18, duration: 0.38, ease: "power2.in" }, 8.35);
+      tl.to(".s3 .right", { opacity: 0, y: -18, duration: 0.38, ease: "power2.in" }, 8.35);
+      tl.fromTo(".s4 .widget-wrap", { opacity: 0, y: 42, scale: 0.94 }, { opacity: 1, y: 0, scale: 1, duration: 0.75, ease: "power3.out" }, 8.62);
+      tl.fromTo(".s4 .right > *", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.55, stagger: 0.1, ease: "power2.out" }, 8.78);
+
+      // Close
+      tl.to(".s4 .widget-wrap", { opacity: 0, y: -18, duration: 0.36, ease: "power2.in" }, 10.28);
+      tl.to(".s4 .right", { opacity: 0, y: -18, duration: 0.36, ease: "power2.in" }, 10.28);
+      tl.to(".brand", { opacity: 0, duration: 0.35, ease: "power2.in" }, 10.35);
+      tl.fromTo(".s5 .mark", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.6, ease: "back.out(1.4)" }, 10.56);
+      tl.fromTo(".s5 .word", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.55, ease: "power2.out" }, 10.66);
+      tl.fromTo(".s5 .closing-tag", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, 10.82);
+      tl.fromTo(".s5 .line", { scaleX: 0 }, { scaleX: 1, duration: 0.6, ease: "power2.out" }, 10.9);
+      tl.fromTo(".s5 .meta", { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.45, ease: "power2.out" }, 11.1);
+
+      window.__timelines = window.__timelines || {};
+      window.__timelines["main"] = tl;
+      tl.seek(0);
+    </script>
+  </body>
+</html>
+

@@ -1,0 +1,20 @@
+{
+  "name": "pulso-dashboard",
+  "version": "1.1.0",
+  "description": "Panel de proyectos y widget de pendientes para el escritorio",
+  "main": "main.js",
+  "author": "Pulso",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "start": "electron .",
+    "start:widget": "electron . --widget",
+    "demo": "node scripts/run-demo.js",
+    "shots": "node scripts/capture-shots.js",
+    "gif": "powershell -ExecutionPolicy Bypass -File media/pulso-intro/render-gif.ps1",
+    "check": "node --check main.js && node --check preload.js && node --check src/app.js && node --check src/widget.js && node --check scripts/ai-terminal.js"
+  },
+  "devDependencies": {
+    "electron": "^45.2.0"
+  }
+}
