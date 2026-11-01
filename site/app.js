@@ -81,3 +81,24 @@ if (copyButton && installCommand) {
 
 const year = document.getElementById("year");
 if (year) year.textContent = String(new Date().getFullYear());
+
+document.querySelectorAll(".copy-prompt").forEach((button) => {
+  const target = document.getElementById(button.dataset.copyTarget);
+  if (!target) return;
+
+  button.addEventListener("click", async () => {
+    const text = target.innerText.trim();
+    try {
+      await navigator.clipboard.writeText(text);
+      button.textContent = "Copiado";
+      setTimeout(() => {
+        button.textContent = "Copiar";
+      }, 1800);
+    } catch {
+      button.textContent = "No disponible";
+      setTimeout(() => {
+        button.textContent = "Copiar";
+      }, 1800);
+    }
+  });
+});
