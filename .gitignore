@@ -14,6 +14,7 @@ ai-config.json
 
 # Capturas de verificación y registros
 artifacts/
+site/.preview/
 *.log
 
 # Sistema

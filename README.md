@@ -13,6 +13,7 @@
   <img src="https://img.shields.io/badge/Electron-45-47848F?logo=electron&logoColor=white" alt="Electron" />
   <img src="https://img.shields.io/badge/license-MIT-c9f45f" alt="MIT" />
   <img src="https://img.shields.io/badge/telemetr%C3%ADa-ninguna-c9f45f" alt="Sin telemetría" />
+  <a href="https://notSickboy.github.io/Pulso/"><img src="https://img.shields.io/badge/web-en%20vivo-c9f45f" alt="Sitio web" /></a>
 </p>
 
 <p align="center">
