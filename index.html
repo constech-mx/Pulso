@@ -41,6 +41,7 @@
           <a href="#producto">Producto</a>
           <a href="#como-funciona">Cómo funciona</a>
           <a href="#agentes">Agentes</a>
+          <a href="#prompts">Prompts</a>
           <a href="#ia">IA</a>
           <a href="#capturas">Capturas</a>
           <a href="#instalar">Instalar</a>
@@ -94,8 +95,6 @@
               </div>
               <img class="app-shot" src="assets/dashboard.png" alt="Resumen de Pulso con el avance de siete proyectos" width="1300" height="813" />
             </div>
-            <div class="float-card float-card--top"><span class="live-dot"></span> Actualizado · 7 proyectos</div>
-            <div class="float-card float-card--bottom"><strong>11</strong> documentos leídos</div>
           </div>
         </div>
       </section>
@@ -247,6 +246,47 @@
               <img src="assets/agente-menu.png" alt="Menú Abrir con de Pulso con deepclaude, claude, opencode, deepseek y harness" width="1300" height="813" loading="lazy" />
               <div class="agent-chip"><span class="live-dot"></span> Abriendo en la carpeta del proyecto</div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--alt prompt-section" id="prompts">
+        <div class="container prompt-layout">
+          <div class="prompt-copy" data-reveal>
+            <div class="kicker">SOLO PROMPTS</div>
+            <h2>Sin botones.<br />Solo un mensaje.</h2>
+            <p>
+              Abre tu agente CLI en la carpeta del proyecto y pega uno de estos
+              prompts. No necesitas instalar nada más: Pulso lee los mismos archivos
+              y verás los cambios al pulsar <strong>Actualizar</strong>.
+            </p>
+            <ol class="prompt-steps">
+              <li><span>01</span><div><strong>Abre la carpeta</strong><p>Claude Code, OpenCode, Codex o cualquier agente CLI.</p></div></li>
+              <li><span>02</span><div><strong>Pega un prompt</strong><p>Empieza por entender el proyecto; después pide cambios.</p></div></li>
+              <li><span>03</span><div><strong>Actualiza el panel</strong><p>Pulso relee la documentación y muestra el nuevo estado.</p></div></li>
+            </ol>
+            <p class="prompt-note">
+              También puedes pedirle al agente que actualice la documentación por ti.
+              Pulso no necesita una integración especial para eso.
+            </p>
+          </div>
+
+          <div class="prompt-cards" data-reveal>
+            <article class="prompt-card">
+              <div class="prompt-card-head">
+                <span>1 · Entender el proyecto</span>
+                <button class="copy-prompt" type="button" data-copy-target="prompt-analyze">Copiar</button>
+              </div>
+              <pre id="prompt-analyze">Lee README.md y la documentación de esta carpeta. Devuelve el estado real, los riesgos y el siguiente paso. No modifiques ningún archivo.</pre>
+            </article>
+
+            <article class="prompt-card">
+              <div class="prompt-card-head">
+                <span>2 · Actualizar la documentación</span>
+                <button class="copy-prompt" type="button" data-copy-target="prompt-docs">Copiar</button>
+              </div>
+              <pre id="prompt-docs">Revisa los cambios de esta sesión y actualiza la documentación. Crea solo los archivos que falten y no sobrescribas los existentes. Al final, resume qué cambió.</pre>
+            </article>
           </div>
         </div>
       </section>
